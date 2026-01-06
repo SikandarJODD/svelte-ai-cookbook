@@ -16,9 +16,9 @@
 
 <Streamdown
 	class={cn('size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0', className)}
-	shikiTheme={mode.current === 'dark' ? 'vesper' : 'github-light-default'}
 	baseTheme="shadcn"
 	components={{ code: Code }}
 	{...restProps}
 />
+<!-- shikiTheme={mode.current === 'dark' ? 'vesper' : 'github-light-default'} -->
 <!-- shikiPreloadThemes={["github-dark-default", "github-light-default"]} -->

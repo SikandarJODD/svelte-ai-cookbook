@@ -4,6 +4,9 @@
 	import Code from 'svelte-streamdown/code'; // Shiki syntax highlighting
 	import { mode } from 'mode-watcher';
 	import type { HTMLAttributes } from 'svelte/elements';
+	// Import Shiki themes
+	import vesper from '@shikijs/themes/vesper';
+	import githubLightDefault from '@shikijs/themes/github-light-default';
 
 	type Props = {
 		content: string;
@@ -12,14 +15,18 @@
 		Omit<HTMLAttributes<HTMLDivElement>, 'content'>;
 
 	let { content, class: className, ...restProps }: Props = $props();
+
+	// Reactive theme selection based on mode
+	let currentTheme = $derived(mode.current === 'dark' ? 'vesper' : 'github-light-default');
 </script>
 
-<div class={cn('size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0', className)}>
+<div class={cn('size-full', className)}>
 	<Streamdown
 		{content}
-		shikiTheme={mode.current === 'dark' ? 'vesper' : 'github-light-default'}
-		baseTheme="shadcn"
 		components={{ code: Code }}
+		baseTheme="shadcn"
+		shikiTheme={currentTheme}
+		shikiThemes={{ vesper, 'github-light-default': githubLightDefault }}
 		{...restProps}
 	/>
 </div>
